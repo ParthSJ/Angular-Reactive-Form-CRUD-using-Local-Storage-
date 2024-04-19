@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Employe Table</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" (click)="reset()"><i class="bi bi-person-fill-add"></i></button>
+      </ul>
+      <h6 class="d-flex">
+       by ParthSJ
+    </h6>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="mb-3" id="form">
+        <label for="exampleInput" class="form-label">Name:</label>
+        <input  type="text" class="form-control" placeholder="Jack" id="name" formControlName="name">
+      </div>
+      <div class="mb-3">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="a@z" formControlName="email">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">{{ submitButtonText }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container-fluid bg-dark" id="table">
+    <table class="table table-dark table-hover"><thead>
+      <tr>
+        <th scope="col"><input type="checkbox" (change)="onAllCheck($event)"></th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; let i = index">
+        <td><input type="checkbox" [(ngModel)]="item.checked" (change)="onCheckChange($event, i)"></td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>
+            <button (click)="onEdit(i)"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="btn btn-success btn-sm"><i class="bi bi-pen-fill"></i></button>
+                        <button (click)="onDelete(i)" class="btn btn-danger btn-sm"><i class="bi bi-person-dash-fill"></i></button> 
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <button (click)="onDeleteSelected()" class="btn btn-danger btn-sm" id="btn"><i class="bi bi-trash"></i></button>
+  </div>
+</div>
